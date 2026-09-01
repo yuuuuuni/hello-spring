@@ -1,0 +1,30 @@
+plugins {
+	id 'java' //선택한 언어
+	id 'org.springframework.boot' version '4.1.1' //선택한 스프링 부트 버전
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'hello' //작성한 그룹명
+version = '0.0.1-SNAPSHOT' //스프링 부트 기본 버전
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17) //자바 버전
+	}
+}
+
+repositories {
+	mavenCentral() //아래의 라이브러리를 찾고 다운로드할 저장소
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' //추가한 html 템플릿 엔진
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc' //추가한 spring web(웹 프로젝트라는 의미)
+	testImplementation 'org.springframework.boot:spring-boot-starter-thymeleaf-test' //thymeleaf 테스트 라이브러리 (요즘에는 기본적으로 테스트 라이브러리가 자동으로 들어감)
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test' //spring web 테스트 라이브러리 (요즘에는 기본적으로 테스트 라이브러리가 자동으로 들어감)
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' //junit 테스트 실행에 필요한 라이브러리
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
