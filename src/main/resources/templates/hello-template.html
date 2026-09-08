@@ -1,0 +1,5 @@
+<html xmlns:th="http://www.thymeleaf.org"> <!-- thymeleaf 템플릿 엔진을 사용해서 html을 동적으로 바꿔줌 -->
+<body>
+<p th:text="'hello ' + ${name}">hello! empty</p> <!-- <p>태그 안에 내용을 넣어두는 이유는 서버 없이 그냥 html 파일만 볼 경우 참고하려고 넣어둠. 실제 서버 돌면 th:text 부분이 화면에 출력됨 -->
+</body>
+</html>
