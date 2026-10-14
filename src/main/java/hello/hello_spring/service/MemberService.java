@@ -10,7 +10,13 @@ import java.util.Optional;
 //회원 repository와 domain을 활용해서 실제 비즈니스 로직을 작성하는 클래스
 public class MemberService {
     //회원 서비스단을 만드려면 MemoryMemberRepository 필요(MemoryMemberRepository 클래스를 new로 객체 생성해야 사용할 수 있으니까)
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    //생성자 추가
+    //이렇게 MemberService 입장에서 직접 MemoryMemberRepository를 new 하지 않고 외부에서 MemoryMemberRepository를 넣어주는 것을 의존성 주입(DI)라고 함
+    public MemberService(MemberRepository memberRepository) { //외부에서 MemberRepository를 받아서 넣어주도록 수정
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원가입
