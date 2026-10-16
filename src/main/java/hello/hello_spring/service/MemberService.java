@@ -3,20 +3,32 @@ package hello.hello_spring.service;
 import hello.hello_spring.domain.Member;
 import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 //회원 repository와 domain을 활용해서 실제 비즈니스 로직을 작성하는 클래스
+@Service //@Service 애노테이션을 달면 스프링이 올라올 때, 스프링이 스프링 컨테이너에 MemberService를 등록시킴(이 애노테이션이 없으면 얘는 순수한 자바 클래스임. 스프링이 얘를 알 수 있는 방법이 없음)
 public class MemberService {
     //회원 서비스단을 만드려면 MemoryMemberRepository 필요(MemoryMemberRepository 클래스를 new로 객체 생성해야 사용할 수 있으니까)
     private final MemberRepository memberRepository;
 
     //생성자 추가
     //이렇게 MemberService 입장에서 직접 MemoryMemberRepository를 new 하지 않고 외부에서 MemoryMemberRepository를 넣어주는 것을 의존성 주입(DI)라고 함
+    @Autowired
     public MemberService(MemberRepository memberRepository) { //외부에서 MemberRepository를 받아서 넣어주도록 수정
         this.memberRepository = memberRepository;
     }
+/*
+    의존성 주입이 이루어지는 원리 (MemberService -> MemberRepository)
+    여기서 MemberService는 MemberRepository가 필요함(MemberService와 MemberRepository는 연결되어 있어야함)
+    (참고: 처음에 스프링이 뜨면서 @Controller, @Service, @Repository를 보고 얘네 모두를 객체 생성하면서 스프링 컨테이너에 스프링 빈으로 등록함)
+    이 경우 스프링이 뜨면서 MemberService 객체를 생성할 때 @Service를 보고 "서비스네!"하고 스프링 컨테이너에 등록하면서 생성자를 호출함
+    이때 @Autowired가 있으므로 스프링이 "MemberRepository가 필요하구나!"하고 스프링 컨테이너에 있는 MemberRepository를 MemberService 생성자의 memberRepository 변수에 넣어주는 것임(즉, 서비스에 리포지토리를 주입하는 것)
+    그런데 이 경우엔 MemoryMemberRepository가 구현체이므로 MemoryMemberRepository 객체를 MemberService 생성자의 memberRepository 변수에 넣어주는 것임
+*/
 
     /**
      * 회원가입
