@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Repository //얘도 마찬가지로 @Repository 애노테이션을 달면 스프링이 리포지토리임을 인식하고 스프링 컨테이너에 MemoryMemberRepository를 등록시킴
+//@Repository //얘도 마찬가지로 @Repository 애노테이션을 달면 스프링이 리포지토리임을 인식하고 스프링 컨테이너에 MemoryMemberRepository를 등록시킴
+//향후 MemoryMemberRepository를 다른 리포지토리로 변경할 예정이므로, 컴포넌트 스캔 방식 대신에 자바 코드로 직접 스프링 빈을 등록하기 위해 @Repository를 주석처리함
 public class MemoryMemberRepository implements MemberRepository {
 
     //static을 붙임으로써 MemoryMemberRepository 객체마다 store를 각각 따로 만드는게 아닌 클래스의 변수(static 변수)로 만들어 아무리 MemoryMemberRepository 객체가 여러 개여도 모두 하나의 store를 공유하도록 함

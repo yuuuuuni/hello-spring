@@ -10,14 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 //회원 repository와 domain을 활용해서 실제 비즈니스 로직을 작성하는 클래스
-@Service //@Service 애노테이션을 달면 스프링이 올라올 때, 스프링이 스프링 컨테이너에 MemberService를 등록시킴(이 애노테이션이 없으면 얘는 순수한 자바 클래스임. 스프링이 얘를 알 수 있는 방법이 없음)
+//@Service //@Service 애노테이션을 달면 스프링이 올라올 때, 스프링이 스프링 컨테이너에 MemberService를 등록시킴(이 애노테이션이 없으면 얘는 순수한 자바 클래스임. 스프링이 얘를 알 수 있는 방법이 없음)
+//향후 MemoryMemberRepository를 다른 리포지토리로 변경할 예정이므로, 컴포넌트 스캔 방식 대신에 자바 코드로 직접 스프링 빈을 등록하기 위해 @Service를 주석처리함
 public class MemberService {
     //회원 서비스단을 만드려면 MemoryMemberRepository 필요(MemoryMemberRepository 클래스를 new로 객체 생성해야 사용할 수 있으니까)
     private final MemberRepository memberRepository;
 
     //생성자 추가
     //이렇게 MemberService 입장에서 직접 MemoryMemberRepository를 new 하지 않고 외부에서 MemoryMemberRepository를 넣어주는 것을 의존성 주입(DI)라고 함
-    @Autowired
+    //@Autowired
+    //향후 MemoryMemberRepository를 다른 리포지토리로 변경할 예정이므로, 컴포넌트 스캔 방식 대신에 자바 코드로 직접 스프링 빈을 설정하기 위해 @Autowired를 주석처리함
     public MemberService(MemberRepository memberRepository) { //외부에서 MemberRepository를 받아서 넣어주도록 수정
         this.memberRepository = memberRepository;
     }
