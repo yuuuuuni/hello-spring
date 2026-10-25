@@ -1,8 +1,11 @@
 package hello.hello_spring.controller;
 
+import hello.hello_spring.domain.Member;
 import hello.hello_spring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 //스프링이 처음에 뜰 때 스프링 컨테이너(통)가 생기는데 이렇게 @Controller 애노테이션을 붙여놓으면 스프링이 스프링 컨테이너에 MemberController 객체를 생성해서 넣어두고 관리를 함(=스프링 컨테이너에서 스프링 빈이 관리된다고 표현함)
 @Controller
@@ -30,4 +33,19 @@ public class MemberController {
     이때 @Autowired가 있으므로 스프링이 "MemberService가 필요하구나!"하고 스프링 컨테이너에 있는 MemberService 객체를 MemberController 생성자의 memberService 변수에 넣어주는 것임(즉, 컨트롤러에 서비스를 주입하는 것)
 */
 
+    @GetMapping("/members/new") //기본적으로 url 창에 주소 입력하고 엔터치면 이동하는 방식. 주로 데이터를 조회할 때 사용
+    public String createForm() {
+        return "members/createMemberForm";
+    }
+
+    //url은 같지만 Get인지 Post인지에 따라서 다르게 매핑할 수 있음
+    @PostMapping("/members/new") //데이터를 <form>에 넣어서 전달할 때 사용하는 방식. 주로 데이터를 등록할 때 사용
+    public String create(MemberForm form) {
+        Member member = new Member();
+        member.setName(form.getName());
+
+        memberService.join(member);
+
+        return "redirect:/"; //회원 가입이 끝나면 홈 화면으로 보냄
+    }
 }
