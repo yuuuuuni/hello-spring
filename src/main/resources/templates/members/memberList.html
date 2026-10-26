@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="container">
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>이름</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- each문 루프 구간 -->
+                <tr th:each="member : ${members}"> <!-- 루프를 돌리는 타임리프 문법. 모델에 담은 members 리스트에서 Member 객체를 하나 꺼내 member 변수에 담음 -->
+                    <td th:text="${member.id}"></td> <!-- 해당 Member의 id를 꺼냄(이때 id 필드는 private로 막혀있으므로 property 접근 방식이라고 해서 getId()를 통해 꺼냄) -->
+                    <td th:text="${member.name}"></td> <!-- 해당 Member의 name를 꺼냄(이때 name 필드는 private로 막혀있으므로 property 접근 방식이라고 해서 getName()을 통해 꺼냄) -->
+                </tr>
+                <!-- /each문 루프 구간 -->
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>
