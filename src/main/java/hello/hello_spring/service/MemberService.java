@@ -5,6 +5,7 @@ import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.Optional;
 //회원 repository와 domain을 활용해서 실제 비즈니스 로직을 작성하는 클래스
 //@Service //@Service 애노테이션을 달면 스프링이 올라올 때, 스프링이 스프링 컨테이너에 MemberService를 등록시킴(이 애노테이션이 없으면 얘는 순수한 자바 클래스임. 스프링이 얘를 알 수 있는 방법이 없음)
 //향후 MemoryMemberRepository를 다른 리포지토리로 변경할 예정이므로, 컴포넌트 스캔 방식 대신에 자바 코드로 직접 스프링 빈을 등록하기 위해 @Service를 주석처리함
+@Transactional //JPA를 사용하려면 항상 이 어노테이션이 있어야 함(데이터를 저장하거나 변경할 때는 항상 트랜잭션이 있어야함. 즉, 데이터의 저장과 변경이 다 트랜잭션 안에서 실행 되어야함)
 public class MemberService {
     //회원 서비스단을 만드려면 MemoryMemberRepository 필요(MemoryMemberRepository 클래스를 new로 객체 생성해야 사용할 수 있으니까)
     private final MemberRepository memberRepository;

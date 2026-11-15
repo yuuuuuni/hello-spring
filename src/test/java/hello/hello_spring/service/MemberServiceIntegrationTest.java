@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +22,7 @@ class MemberServiceIntegrationTest {
     @Autowired MemberRepository memberRepository; //SpringConfig에서 빈으로 등록된 구현체인 JdbcMemberRepository가 들어옴
 
     @Test
+    //@Commit //테스트 후에 데이터를 롤백하지 않고 그대로 DB에 반영하는 애노테이션
     void 회원가입() {
         //given-when-then 패턴: 테스트 할 때 이렇게 세부분으로 나눠서 작성하면 도움이 됨
         //given - 이러한 상황이 주어져서 (기반으로 하는 데이터)

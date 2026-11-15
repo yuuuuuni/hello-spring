@@ -1,10 +1,8 @@
 package hello.hello_spring;
 
-import hello.hello_spring.repository.JdbcMemberRepository;
-import hello.hello_spring.repository.JdbcTemplateMemberRepository;
-import hello.hello_spring.repository.MemberRepository;
-import hello.hello_spring.repository.MemoryMemberRepository;
+import hello.hello_spring.repository.*;
 import hello.hello_spring.service.MemberService;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +14,14 @@ import javax.sql.DataSource;
 public class SpringConfig {
 
     private final DataSource dataSource;
+    private final EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) { //스프링이 'application.properties'의 DB 정보를 읽고 DB와 연결할 수 있는 dataSource를 만들어서 주입해줌
+    //스프링이 'application.properties'의 DB 정보를 읽고 DB와 연결할 수 있는 dataSource를 만들어서 주입해줌
+    //스프링이 EntityManager를 생성해서 주입해줌으로 우리는 주입 받아서 사용하면 됨
+    public SpringConfig(DataSource dataSource, EntityManager em) {
         this.dataSource = dataSource;
+        this.em = em;
     }
 
     @Bean //스프링 빈으로 등록한다는 의미
@@ -31,7 +33,8 @@ public class SpringConfig {
     public MemberRepository memberRepository() {
         //return new MemoryMemberRepository();
         //return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+        //return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 
 }
